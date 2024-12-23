@@ -100,10 +100,10 @@ def show_login():
             password = st.text_input("", type="password", key="login_password")
     if st.button("Log In"):
         if verify_user(username, password):
-            st.session_state.logged_in = True
-            st.session_state.username = username
+            st.session_state["logged_in"] = True
+            st.session_state["username"] = username
             st.success(f"Welcome, {username}!")
-            st.experimental_rerun()
+            st.experimental_rerun()  # Rerun safely
         else:
             st.error("Invalid credentials!")
 
@@ -151,3 +151,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
