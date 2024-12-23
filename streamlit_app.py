@@ -71,6 +71,26 @@ def add_custom_styling():
         unsafe_allow_html=True,
     )
 
+# Introduction Section
+def show_introduction():
+    st.markdown("""
+    ## 🌍 Introduction
+    The AQI Dashboard helps you understand air quality patterns across various regions. 
+    With this interactive tool, you can analyze trends, gain actionable insights, 
+    and make informed decisions for a healthier environment.
+    """)
+
+# Conclusion Section
+def show_conclusion():
+    st.markdown("""
+    ---
+    ## 🎉 Conclusion
+    This dashboard offers a comprehensive way to analyze air quality trends. 
+    Stay informed and contribute to a cleaner, healthier planet!
+
+    **Thank you for using the AQI Dashboard! 🌿**
+    """)
+
 # Login Page
 def show_login():
     st.subheader("Log In")
@@ -111,7 +131,9 @@ def main():
 
     if st.session_state.logged_in:
         st.write(f"Welcome to the AQI Dashboard, {st.session_state.username}!")
+        show_introduction()
         embed_powerbi()
+        show_conclusion()
         if st.button("Log Out"):
             st.session_state.logged_in = False
     else:
