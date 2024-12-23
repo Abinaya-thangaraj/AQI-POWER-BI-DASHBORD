@@ -38,10 +38,11 @@ def verify_user(username, password):
 
 # Embed Power BI report
 def embed_powerbi():
-    powerbi_url = 'https://app.powerbi.com/view?r=YOUR_REPORT_URL'  # Replace with your Power BI URL
+    powerbi_url = "https://app.powerbi.com/view?r=eyJrIjoiNzQ1NjFkNzgtMDk4Mi00MjlkLWFlM2QtYmNkM2NlMWU2ODBjIiwidCI6ImQxYWY5MTdkLWI3OGEtNGU1Zi1hOGU3LTE3ZjcwMGU4NDJjZSJ9"
     st.markdown(
         f"""
         <iframe 
+            title="INFOSYS" 
             width="100%" 
             height="650px" 
             src="{powerbi_url}" 
