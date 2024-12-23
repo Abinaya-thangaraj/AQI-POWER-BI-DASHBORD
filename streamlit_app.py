@@ -65,23 +65,6 @@ def add_custom_styling():
             color: #4CAF50;
             text-align: center;
         }
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .btn-primary {
-            background-color: #008CBA;
-            border: none;
-            color: white;
-            padding: 10px 24px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -90,34 +73,21 @@ def add_custom_styling():
 # Login Page
 def show_login():
     st.subheader("Log In")
-    with st.container():
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.write("Username")
-            username = st.text_input("", key="login_username")
-        with col2:
-            st.write("Password")
-            password = st.text_input("", type="password", key="login_password")
+    username = st.text_input("Username", key="login_username")
+    password = st.text_input("Password", type="password", key="login_password")
     if st.button("Log In"):
         if verify_user(username, password):
-            st.session_state["logged_in"] = True
-            st.session_state["username"] = username
+            st.session_state.logged_in = True
+            st.session_state.username = username
             st.success(f"Welcome, {username}!")
-            st.experimental_rerun()  # Rerun safely
         else:
             st.error("Invalid credentials!")
 
 # Sign-Up Page
 def show_signup():
     st.subheader("Sign Up")
-    with st.container():
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.write("Username")
-            username = st.text_input("", key="signup_username")
-        with col2:
-            st.write("Password")
-            password = st.text_input("", type="password", key="signup_password")
+    username = st.text_input("Username", key="signup_username")
+    password = st.text_input("Password", type="password", key="signup_password")
     confirm_password = st.text_input("Confirm Password", type="password")
     if st.button("Sign Up"):
         if password != confirm_password:
@@ -138,17 +108,18 @@ def main():
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
 
-    if not st.session_state.logged_in:
+    if st.session_state.logged_in:
+        st.write(f"Welcome to the AQI Dashboard, {st.session_state.username}!")
+        embed_powerbi()
+        if st.button("Log Out"):
+            st.session_state.logged_in = False
+    else:
         st.sidebar.title("Navigation")
         menu = st.sidebar.radio("Menu", ["Log In", "Sign Up"])
         if menu == "Log In":
             show_login()
         elif menu == "Sign Up":
             show_signup()
-    else:
-        st.write("Welcome to the AQI Dashboard!")
-        embed_powerbi()
 
 if __name__ == "__main__":
     main()
-
